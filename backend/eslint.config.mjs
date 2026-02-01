@@ -6,7 +6,7 @@ export default [
   {
     languageOptions: {
       sourceType: 'module',
-      ecmaVersion: '2021',
+      ecmaVersion: 'latest',
       globals: globals.node,
     },
   },
