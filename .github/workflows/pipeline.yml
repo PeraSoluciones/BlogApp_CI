@@ -1,0 +1,36 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: cd backend && npm install && cd frontend && npm install
+      - name: Check styles
+        run: cd backend && npm run lint && cd frontend && npm run lint
+      - name: build
+        run: rm -rf backend/dist && cd frontend && npm run build && cp -r dist backend
+      - name: test
+        run: cd backend && npm run start:test
+    #   - name: Trigger deployment
+    #     run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+    #   - name: Discord notification
+    #     if: ${{ failure() }}
+    #     env:
+    #       DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    #     uses: Ilshidur/action-discord@ad5235de713df3ef38022185499b02ffe93b7efe
+    #     with:
+    #       args: 'The build of ${{ github.event.repository.full_name }} has failed.'
