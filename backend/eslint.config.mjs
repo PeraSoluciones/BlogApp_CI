@@ -6,7 +6,7 @@ export default [
   {
     languageOptions: {
       sourceType: 'module',
-      ecmaVersion: 'latest',
+      ecmaVersion: 2021,
       globals: globals.node,
     },
   },
@@ -14,7 +14,7 @@ export default [
     files: ['**/*.js'],
     languageOptions: { sourceType: 'script', globals: globals.node },
   },
-  { languageOptions: { ecmaVersion: 'latest' } },
+  { languageOptions: { ecmaVersion: 2021 } },
   js.configs.recommended,
   {
     plugins: { '@stylistic/js': stylisticJs },
