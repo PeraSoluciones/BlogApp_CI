@@ -1,4 +1,3 @@
-const usersRouter = require('../controllers/users');
 const Note = require('../models/note');
 const User = require('../models/user');
 

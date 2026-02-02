@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Install dependencies
@@ -22,7 +22,7 @@ jobs:
       - name: Check styles
         run: cd backend && npm run lint && cd ../frontend && npm run lint
       - name: build
-        run: rm -rf backend/dist && cd ../frontend && npm run build && cp -r dist ../backend
+        run: rm -rf backend/dist && cd frontend && npm run build && cp -r dist ../backend
       - name: test
         run: cd backend && npm run start:test
     #   - name: Trigger deployment
